@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tournaments | ArenaX</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/css/main.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-dark fixed-top navbar-esport"><div class="container-fluid px-4"><a class="navbar-brand d-flex align-items-center gap-3" href="index.html"><span class="brand-mark"><i class="bi bi-lightning-charge-fill"></i></span><span class="fw-bold">ArenaX</span></a><button class="btn btn-neon" data-bs-toggle="modal" data-bs-target="#createModal"><i class="bi bi-plus-lg me-2"></i>Create</button></div></nav>
+  <div class="dashboard-layout">
+    <aside class="sidebar"><a class="sidebar-link" href="dashboard.html"><i class="bi bi-grid-1x2-fill"></i>Dashboard</a><a class="sidebar-link active" href="tournaments.html"><i class="bi bi-trophy-fill"></i>Tournaments</a><a class="sidebar-link" href="team.html"><i class="bi bi-people-fill"></i>Team</a><a class="sidebar-link" href="leaderboard.html"><i class="bi bi-bar-chart-fill"></i>Leaderboard</a><a class="sidebar-link" href="index.html"><i class="bi bi-house-fill"></i>Home</a></aside>
+    <main class="dashboard-main">
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"><div><span class="eyebrow">Events</span><h1 class="section-title mb-0">Tournaments</h1></div><span class="badge-esport">73 Total</span></div>
+      <section class="panel p-4 mb-4">
+        <div class="row g-3">
+          <div class="col-lg-6"><input class="form-control" placeholder="Search tournaments"></div>
+          <div class="col-sm-6 col-lg-3"><select class="form-select"><option>All Games</option><option>Valorant</option><option>eFootball</option><option>CS2</option></select></div>
+          <div class="col-sm-6 col-lg-3"><select class="form-select"><option>All Status</option><option>Live</option><option>Upcoming</option><option>Completed</option></select></div>
+        </div>
+      </section>
+      <div class="row g-4">
+        <div class="col-xl-4 col-md-6"><div class="tournament-card p-4 h-100"><div class="d-flex justify-content-between mb-4"><span class="badge-esport">Valorant</span><span class="badge-esport badge-live">Live</span></div><h2 class="h4 fw-bold">Neon Rift Masters</h2><p class="text-muted-soft">16 teams, double elimination, pro broadcast final.</p><div class="d-flex justify-content-between"><strong>$12,000</strong><a href="tournament-details.html">View</a></div></div></div>
+        <div class="col-xl-4 col-md-6"><div class="tournament-card p-4 h-100"><div class="d-flex justify-content-between mb-4"><span class="badge-esport">CS2</span><span class="badge-esport badge-upcoming">Upcoming</span></div><h2 class="h4 fw-bold">Dustline Invitational</h2><p class="text-muted-soft">Premier CS2 weekend bracket for verified squads.</p><div class="d-flex justify-content-between"><strong>$8,500</strong><a href="tournament-details.html">View</a></div></div></div>
+        <div class="col-xl-4 col-md-6"><div class="tournament-card p-4 h-100"><div class="d-flex justify-content-between mb-4"><span class="badge-esport">eFootball</span><span class="badge-esport badge-completed">Completed</span></div><h2 class="h4 fw-bold">Elite Cup Finals</h2><p class="text-muted-soft">Regional playoff finals with top club captains.</p><div class="d-flex justify-content-between"><strong>$5,000</strong><a href="tournament-details.html">View</a></div></div></div>
+        <div class="col-xl-4 col-md-6"><div class="tournament-card p-4 h-100"><div class="d-flex justify-content-between mb-4"><span class="badge-esport">Valorant</span><span class="badge-esport badge-upcoming">Upcoming</span></div><h2 class="h4 fw-bold">Spike Rush Open</h2><p class="text-muted-soft">Fast tactical cup for academy rosters.</p><div class="d-flex justify-content-between"><strong>$3,200</strong><a href="tournament-details.html">View</a></div></div></div>
+        <div class="col-xl-4 col-md-6"><div class="tournament-card p-4 h-100"><div class="d-flex justify-content-between mb-4"><span class="badge-esport">CS2</span><span class="badge-esport badge-live">Live</span></div><h2 class="h4 fw-bold">Inferno Clash</h2><p class="text-muted-soft">Map pool showcase with live best-of-three series.</p><div class="d-flex justify-content-between"><strong>$6,750</strong><a href="tournament-details.html">View</a></div></div></div>
+        <div class="col-xl-4 col-md-6"><div class="tournament-card p-4 h-100"><div class="d-flex justify-content-between mb-4"><span class="badge-esport">eFootball</span><span class="badge-esport badge-upcoming">Upcoming</span></div><h2 class="h4 fw-bold">Champions Circuit</h2><p class="text-muted-soft">Group stage plus knockout format for elite players.</p><div class="d-flex justify-content-between"><strong>$4,100</strong><a href="tournament-details.html">View</a></div></div></div>
+      </div>
+      <nav class="mt-4"><ul class="pagination justify-content-end"><li class="page-item active"><a class="page-link" href="#">1</a></li><li class="page-item"><a class="page-link" href="#">2</a></li><li class="page-item"><a class="page-link" href="#">3</a></li></ul></nav>
+    </main>
+  </div>
+  <div class="modal fade" id="createModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Create Tournament</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><input class="form-control mb-3" placeholder="Tournament name"><select class="form-select mb-3"><option>Valorant</option><option>eFootball</option><option>CS2</option></select><button class="btn btn-neon w-100">Save Draft</button></div></div></div></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

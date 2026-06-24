@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ArenaX | Gaming Tournament Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/css/main.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-esport">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-3 fw-black" href="index.html">
+        <span class="brand-mark"><i class="bi bi-lightning-charge-fill"></i></span>
+        <span class="fw-bold">ArenaX</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto gap-lg-3">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="tournaments.html">Tournaments</a></li>
+          <li class="nav-item"><a class="nav-link" href="leaderboard.html">Leaderboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="team.html">Teams</a></li>
+        </ul>
+        <div class="d-flex gap-2">
+          <a class="btn btn-ghost px-4" href="login.html">Login</a>
+          <a class="btn btn-neon px-4" href="dashboard.html">Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-panel">
+          <div class="hero-content">
+            <span class="eyebrow mb-3"><i class="bi bi-broadcast-pin"></i> Live competitive hub</span>
+            <h1 class="display-title mb-4">Gaming Tournament Platform</h1>
+            <p class="lead text-muted-soft mb-4">Create squads, track match activity, discover premium Valorant, eFootball, and CS2 tournaments, and climb a polished esports leaderboard.</p>
+            <div class="d-flex flex-wrap gap-3">
+              <a href="tournaments.html" class="btn btn-neon btn-lg px-4">Explore Tournaments</a>
+              <a href="leaderboard.html" class="btn btn-ghost btn-lg px-4">View Rankings</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad pt-4">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+          <div>
+            <span class="eyebrow">Games</span>
+            <h2 class="section-title mb-0">Choose Your Arena</h2>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="game-card p-4 h-100">
+              <div class="game-icon mb-4"><i class="bi bi-crosshair fs-4"></i></div>
+              <h3 class="h4 fw-bold">Valorant</h3>
+              <p class="text-muted-soft mb-4">Tactical 5v5 brackets, live finals, elite team ladders.</p>
+              <span class="badge-esport">24 Events</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="game-card p-4 h-100">
+              <div class="game-icon mb-4"><i class="bi bi-trophy-fill fs-4"></i></div>
+              <h3 class="h4 fw-bold">eFootball</h3>
+              <p class="text-muted-soft mb-4">Solo and club-style knockout cups with clean fixtures.</p>
+              <span class="badge-esport">18 Events</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="game-card p-4 h-100">
+              <div class="game-icon mb-4"><i class="bi bi-shield-shaded fs-4"></i></div>
+              <h3 class="h4 fw-bold">CS2</h3>
+              <p class="text-muted-soft mb-4">Premier leagues, map veto nights, and weekly qualifiers.</p>
+              <span class="badge-esport">31 Events</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+          <div>
+            <span class="eyebrow">Featured</span>
+            <h2 class="section-title mb-0">Featured Tournaments</h2>
+          </div>
+          <a href="tournaments.html" class="btn btn-ghost">All Events</a>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="tournament-card p-4 h-100">
+              <div class="d-flex justify-content-between mb-4"><span class="badge-esport">Valorant</span><span class="badge-esport badge-live">Live</span></div>
+              <h3 class="h4 fw-bold">Neon Rift Masters</h3>
+              <p class="text-muted-soft">Nova Esports vs Shadow Force headlines tonight.</p>
+              <div class="d-flex justify-content-between"><span>$12,000 Pool</span><a href="tournament-details.html">Details</a></div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="tournament-card p-4 h-100">
+              <div class="d-flex justify-content-between mb-4"><span class="badge-esport">CS2</span><span class="badge-esport badge-upcoming">Upcoming</span></div>
+              <h3 class="h4 fw-bold">Dustline Invitational</h3>
+              <p class="text-muted-soft">Titan XI enters as top seed with a 76% win rate.</p>
+              <div class="d-flex justify-content-between"><span>$8,500 Pool</span><a href="tournament-details.html">Details</a></div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="tournament-card p-4 h-100">
+              <div class="d-flex justify-content-between mb-4"><span class="badge-esport">eFootball</span><span class="badge-esport badge-completed">Completed</span></div>
+              <h3 class="h4 fw-bold">Elite Cup Finals</h3>
+              <p class="text-muted-soft">Cyber Wolves secured the final with a clean 3-0 sweep.</p>
+              <div class="d-flex justify-content-between"><span>$5,000 Pool</span><a href="tournament-details.html">Details</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad pt-0">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-6 col-lg-3"><div class="stat-card"><div class="stat-value" data-counter="73"></div><p class="text-muted-soft mb-0">Tournaments</p></div></div>
+          <div class="col-6 col-lg-3"><div class="stat-card"><div class="stat-value" data-counter="412"></div><p class="text-muted-soft mb-0">Teams</p></div></div>
+          <div class="col-6 col-lg-3"><div class="stat-card"><div class="stat-value" data-counter="980" data-suffix="+"></div><p class="text-muted-soft mb-0">Matches</p></div></div>
+          <div class="col-6 col-lg-3"><div class="stat-card"><div class="stat-value" data-counter="68" data-suffix="%"></div><p class="text-muted-soft mb-0">Avg. Win Rate</p></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div class="toast" role="status">
+      <div class="toast-body d-flex gap-2"><i class="bi bi-bell-fill text-info"></i> Neon Rift Masters final starts in 30 minutes.</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>
