@@ -1,0 +1,555 @@
+/**
+ * GameArena - Main Stylesheet
+ * KUET Gaming Tournament Management System
+ * 100% Bright Theme - All visible, no dark
+ */
+
+/* =====================================================
+   CSS Variables
+   ===================================================== */
+:root {
+    --primary: #6f42c1;
+    --primary-light: #8b5cf6;
+    --primary-dark: #5a32a3;
+    --secondary: #28a745;
+    --accent: #f97316;
+    --bg: #f0f2f5;
+    --card: #ffffff;
+    --text: #2d3436;
+    --text-secondary: #636e72;
+    --border: #dfe6e9;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+}
+
+/* =====================================================
+   Global
+   ===================================================== */
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', monospace;
+    color: var(--text);
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-dark); }
+
+/* =====================================================
+   Navbar - Bright purple gradient
+   ===================================================== */
+.navbar {
+    background: linear-gradient(135deg, #7c3aed, #6f42c1, #8b5cf6) !important;
+    border-bottom: 3px solid #5a32a3;
+    box-shadow: 0 2px 15px rgba(124, 58, 237, 0.3);
+}
+
+.navbar-brand {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    color: #fff !important;
+}
+
+.navbar-toggler {
+    border-color: rgba(255,255,255,0.5);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.nav-link {
+    font-weight: 600;
+    color: rgba(255,255,255,0.9) !important;
+    padding: 8px 16px !important;
+    border-radius: 8px;
+    margin: 0 2px;
+    transition: all 0.2s;
+}
+
+.nav-link:hover {
+    color: #fff !important;
+    background: rgba(255,255,255,0.15);
+}
+
+.nav-link.active {
+    color: #fff !important;
+    background: rgba(255,255,255,0.2);
+}
+
+/* =====================================================
+   Cards - Pure white
+   ===================================================== */
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: all 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 6px 20px rgba(111, 66, 193, 0.12);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-bottom: 2px solid var(--primary);
+    border-radius: 14px 14px 0 0 !important;
+    padding: 14px 20px;
+}
+
+.card-header h5,
+.card-header .mb-0,
+.card-header * {
+    color: var(--text) !important;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.95rem;
+}
+
+.card-footer {
+    background: #f8f9fa;
+    border-top: 1px solid var(--border);
+    border-radius: 0 0 14px 14px !important;
+}
+
+/* =====================================================
+   Stat Cards - Bright with colored left border
+   ===================================================== */
+.stat-card {
+    border-left: 5px solid var(--primary);
+    border-radius: 12px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.stat-card.blue { border-left-color: #3b82f6; }
+.stat-card.green { border-left-color: #22c55e; }
+.stat-card.orange { border-left-color: #f97316; }
+.stat-card.red { border-left-color: #ef4444; }
+.stat-card.purple { border-left-color: #8b5cf6; }
+.stat-card.cyan { border-left-color: #06b6d4; }
+
+.stat-card .stat-icon {
+    font-size: 2.8rem;
+    opacity: 0.15;
+}
+
+.stat-card .stat-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.stat-card .text-muted {
+    color: var(--text-secondary) !important;
+}
+
+.stat-card .card-body {
+    padding: 20px;
+}
+
+/* =====================================================
+   Buttons - Bright
+   ===================================================== */
+.btn-primary {
+    background: linear-gradient(135deg, #7c3aed, #6f42c1);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #6f42c1, #5a32a3);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    background: transparent;
+    font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-success { background: #22c55e; border: none; color: #fff; }
+.btn-success:hover { background: #16a34a; color: #fff; }
+
+.btn-danger { background: #ef4444; border: none; color: #fff; }
+.btn-danger:hover { background: #dc2626; color: #fff; }
+
+.btn-warning { background: #f59e0b; border: none; color: #fff; }
+.btn-warning:hover { background: #d97706; color: #fff; }
+
+.btn-info { background: #06b6d4; border: none; color: #fff; }
+
+.btn-outline-secondary { border: 2px solid #9ca3af; color: #6b7280; }
+.btn-outline-secondary:hover { background: #6b7280; color: #fff; }
+
+.btn-outline-danger { border: 2px solid #ef4444; color: #ef4444; }
+.btn-outline-danger:hover { background: #ef4444; color: #fff; }
+
+/* =====================================================
+   Tables - Clean white with purple headers
+   ===================================================== */
+.table {
+    color: var(--text);
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+    border-bottom: 2px solid var(--primary);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    color: var(--primary-dark);
+    font-weight: 700;
+    padding: 12px 14px;
+    letter-spacing: 0.3px;
+}
+
+.table tbody td {
+    border-color: var(--border);
+    padding: 11px 14px;
+    vertical-align: middle;
+    color: var(--text);
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #ede9fe !important;
+}
+
+.table-sm td, .table-sm th {
+    padding: 7px 10px;
+}
+
+/* =====================================================
+   Forms - White inputs, clear borders
+   ===================================================== */
+.form-control, .form-select {
+    background: #ffffff;
+    border: 2px solid #d1d5db;
+    color: var(--text);
+    border-radius: 10px;
+    padding: 10px 14px;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+    background: #ffffff;
+    border-color: var(--primary);
+    color: var(--text);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+.form-control::placeholder { color: #9ca3af; }
+
+.form-label {
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.input-group-text {
+    background: #f3f4f6;
+    border: 2px solid #d1d5db;
+    color: var(--text-secondary);
+    border-radius: 10px 0 0 10px;
+}
+
+.input-group .form-control {
+    border-radius: 0 10px 10px 0;
+}
+
+/* =====================================================
+   Badges
+   ===================================================== */
+.badge { font-weight: 600; padding: 5px 10px; font-size: 0.77rem; }
+
+/* =====================================================
+   Alerts
+   ===================================================== */
+.alert { border-radius: 10px; border: none; font-weight: 500; }
+.alert-success { background: #d1fae5; color: #065f46; border-left: 5px solid #22c55e; }
+.alert-danger { background: #fee2e2; color: #991b1b; border-left: 5px solid #ef4444; }
+.alert-warning { background: #fef3c7; color: #92400e; border-left: 5px solid #f59e0b; }
+.alert-info { background: #e0f2fe; color: #075985; border-left: 5px solid #0ea5e9; }
+
+/* =====================================================
+   Modals
+   ===================================================== */
+.modal-content {
+    background: #ffffff;
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    border-bottom: 2px solid var(--border);
+    padding: 16px 24px;
+}
+
+.modal-header .modal-title {
+    color: var(--text);
+    font-weight: 700;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border);
+    padding: 14px 24px;
+}
+
+/* =====================================================
+   Sidebar (Admin) - Bright purple
+   ===================================================== */
+.sidebar {
+    background: linear-gradient(180deg, #ede9fe, #ddd6fe);
+    min-height: 100vh;
+    width: 250px;
+    border-right: 3px solid var(--primary);
+    padding-top: 20px;
+}
+
+.sidebar h5 {
+    color: var(--primary-dark) !important;
+    font-size: 1.1rem;
+}
+
+.sidebar .nav-link {
+    color: var(--primary-dark) !important;
+    border-radius: 10px;
+    padding: 11px 18px;
+    margin-bottom: 4px;
+    font-weight: 600;
+    transition: all 0.2s;
+    background: transparent;
+}
+
+.sidebar .nav-link:hover {
+    background: rgba(124, 58, 237, 0.12);
+    color: var(--primary) !important;
+}
+
+.sidebar .nav-link.active {
+    background: linear-gradient(135deg, #7c3aed, #6f42c1);
+    color: #fff !important;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+.sidebar hr {
+    border-color: #c4b5fd;
+}
+
+/* =====================================================
+   Tournament Cards
+   ===================================================== */
+.tournament-card { border-radius: 16px; overflow: hidden; }
+.tournament-card .card-body { padding: 1.5rem; }
+
+.tournament-status {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+}
+
+.tournament-prize {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    color: #f97316;
+    font-weight: 700;
+}
+
+/* =====================================================
+   Team Cards
+   ===================================================== */
+.team-card { text-align: center; padding: 20px; }
+
+.team-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid var(--primary);
+    margin: 0 auto 15px;
+    background: linear-gradient(135deg, #ede9fe, #c4b5fd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.team-logo i { font-size: 2rem; color: var(--primary); }
+
+.team-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+/* =====================================================
+   Leaderboard
+   ===================================================== */
+.leaderboard-table .rank-1 td { background: #fef9c3; border-left: 4px solid #eab308; }
+.leaderboard-table .rank-2 td { background: #f3f4f6; border-left: 4px solid #9ca3af; }
+.leaderboard-table .rank-3 td { background: #fff7ed; border-left: 4px solid #ea580c; }
+
+.rank-badge {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 700;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem;
+}
+
+.rank-badge.gold { background: #fbbf24; color: #78350f; }
+.rank-badge.silver { background: #d1d5db; color: #374151; }
+.rank-badge.bronze { background: #fb923c; color: #fff; }
+
+/* =====================================================
+   Match Cards
+   ===================================================== */
+.match-card { border-radius: 12px; padding: 20px; }
+
+.vs-text {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #f97316;
+}
+
+.team-score {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* =====================================================
+   Progress Bar
+   ===================================================== */
+.progress {
+    background: #e5e7eb;
+    border-radius: 10px;
+    height: 20px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* =====================================================
+   Footer
+   ===================================================== */
+.footer {
+    border-top: 3px solid var(--primary);
+    background: linear-gradient(135deg, #ede9fe, #f3e8ff);
+    color: var(--text);
+}
+
+.footer h5 { color: var(--primary-dark) !important; }
+.footer .text-muted { color: var(--text-secondary) !important; }
+.footer a { color: var(--text-secondary); }
+.footer a:hover { color: var(--primary); }
+
+/* =====================================================
+   Dropdown
+   ===================================================== */
+.dropdown-menu {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    padding: 8px;
+}
+
+.dropdown-item {
+    color: var(--text);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-weight: 500;
+}
+
+.dropdown-item:hover {
+    background: #ede9fe;
+    color: var(--primary);
+}
+
+/* =====================================================
+   List Group
+   ===================================================== */
+.list-group-item {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--text);
+}
+
+/* =====================================================
+   Scrollbar
+   ===================================================== */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+/* =====================================================
+   Utilities
+   ===================================================== */
+.text-primary { color: var(--primary) !important; }
+.text-muted { color: var(--text-secondary) !important; }
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #7c3aed, #6f42c1) !important;
+    color: #fff !important;
+}
+
+.bg-gradient-primary h1,
+.bg-gradient-primary h2,
+.bg-gradient-primary h3,
+.bg-gradient-primary p,
+.bg-gradient-primary span {
+    color: #fff !important;
+}
+
+/* =====================================================
+   Responsive
+   ===================================================== */
+@media (max-width: 768px) {
+    .stat-card .stat-value { font-size: 1.4rem; }
+    .tournament-prize { font-size: 1rem; }
+    .sidebar { width: 100%; min-height: auto; position: relative; }
+}

@@ -1,0 +1,44 @@
+# GameArena - Apache Configuration
+RewriteEngine On
+RewriteBase /GameArena/
+
+# Prevent directory listing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "\.(sql|log|ini)$">
+    Require all denied
+</FilesMatch>
+
+# Protect config files
+<Files "database.php">
+    Require all denied
+</Files>
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Enable mod_rewrite for clean URLs
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /GameArena/
+</IfModule>
+
+# Cache static files
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
