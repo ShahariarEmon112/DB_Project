@@ -63,12 +63,14 @@ class Auth {
         // Hash password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Insert user
+        // Insert user with manual PK
         try {
-            $sql = "INSERT INTO users (username, password, full_name, phone, department, student_id, role_id, is_active)
-                    VALUES (:username, :password, :full_name, :phone, :department, :student_id, 2, 1)";
+            $newId = (int)$db->fetchColumn("SELECT NVL(MAX(user_id), 0) + 1 FROM users");
+            $sql = "INSERT INTO users (user_id, username, password, full_name, phone, department, student_id, role_id, is_active)
+                    VALUES (:user_id, :username, :password, :full_name, :phone, :department, :student_id, 2, 1)";
 
             $db->insert($sql, [
+                ':user_id' => $newId,
                 ':username' => $username,
                 ':password' => $hashedPassword,
                 ':full_name' => $fullName,

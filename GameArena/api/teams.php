@@ -69,20 +69,22 @@ try {
             Auth::requireLogin();
             $db = getDB();
 
-            $sql = "INSERT INTO teams (team_name, description, department, captain_id)
-                    VALUES (:name, :desc, :dept, :captain)";
+            $newTeamId = (int)$db->fetchColumn("SELECT NVL(MAX(team_id), 0) + 1 FROM teams");
+            $sql = "INSERT INTO teams (team_id, team_name, description, department, captain_id)
+                    VALUES (:team_id, :name, :desc, :dept, :captain)";
 
             $db->insert($sql, [
+                ':team_id' => $newTeamId,
                 ':name' => $data['team_name'],
                 ':desc' => $data['description'] ?? '',
                 ':dept' => $data['department'] ?? '',
                 ':captain' => Auth::getUserId()
             ]);
 
-            $teamId = (int)$db->fetchColumn("SELECT MAX(team_id) FROM teams");
+            $newMemberId = (int)$db->fetchColumn("SELECT NVL(MAX(member_id), 0) + 1 FROM team_members");
             $db->insert(
-                "INSERT INTO team_members (team_id, user_id, role_in_team) VALUES (:team, :user, 'Captain')",
-                [':team' => $teamId, ':user' => Auth::getUserId()]
+                "INSERT INTO team_members (member_id, team_id, user_id, role_in_team) VALUES (:mid, :team, :user, 'Captain')",
+                [':mid' => $newMemberId, ':team' => $newTeamId, ':user' => Auth::getUserId()]
             );
 
             jsonResponse(['success' => true, 'message' => 'Team created'], 201);

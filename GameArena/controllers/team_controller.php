@@ -122,10 +122,11 @@ try {
             }
 
             $message = sanitize($_POST['message'] ?? '');
+            $newId = (int)$db->fetchColumn("SELECT NVL(MAX(request_id), 0) + 1 FROM team_join_requests");
             $db->insert(
-                "INSERT INTO team_join_requests (team_id, user_id, message, status, created_at)
-                 VALUES (:tid, :p_user, :msg, 'Pending', CURRENT_TIMESTAMP)",
-                [':tid' => $teamId, ':p_user' => $userId, ':msg' => $message]
+                "INSERT INTO team_join_requests (request_id, team_id, user_id, message, status, created_at)
+                 VALUES (:rid, :tid, :p_user, :msg, 'Pending', CURRENT_TIMESTAMP)",
+                [':rid' => $newId, ':tid' => $teamId, ':p_user' => $userId, ':msg' => $message]
             );
 
             header("Location: /GameArena/pages/teams.php?success=" . urlencode('Join request sent! Waiting for captain approval.'));
@@ -153,9 +154,10 @@ try {
                 [':p_user' => $userId, ':rid' => $requestId]
             );
 
+            $newMemberId = (int)$db->fetchColumn("SELECT NVL(MAX(member_id), 0) + 1 FROM team_members");
             $db->insert(
-                "INSERT INTO team_members (team_id, user_id, role_in_team, joined_date) VALUES (:tid, :p_user, 'Member', CURRENT_TIMESTAMP)",
-                [':tid' => $req['TEAM_ID'], ':p_user' => $req['USER_ID']]
+                "INSERT INTO team_members (member_id, team_id, user_id, role_in_team, joined_date) VALUES (:mid, :tid, :p_user, 'Member', CURRENT_TIMESTAMP)",
+                [':mid' => $newMemberId, ':tid' => $req['TEAM_ID'], ':p_user' => $req['USER_ID']]
             );
 
             header("Location: /GameArena/pages/teams.php?success=" . urlencode('Player approved and added to team!'));

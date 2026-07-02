@@ -1,28 +1,27 @@
 <?php
-// Generate correct bcrypt hash for "password123"
-$hash = password_hash('password123', PASSWORD_DEFAULT);
-echo "Hash: $hash\n";
-echo "Verify: " . (password_verify('password123', $hash) ? 'PASS' : 'FAIL') . "\n";
+$conn = oci_connect('gamearena', 'gamearena123', 'localhost:1521/XEPDB1');
+if (!$conn) { echo "CONNECT FAIL\n"; exit(1); }
 
-// Update all passwords in database
-$conn = @oci_connect('gamearena', 'gamearena123', 'localhost:1521/XEPDB1', 'AL32UTF8');
-if (!$conn) {
-    die('Connection failed');
+$hashed = password_hash('password123', PASSWORD_DEFAULT);
+echo "New hash: $hashed\n";
+
+// Update all users to password123
+$s = oci_parse($conn, "UPDATE users SET password = :pwd");
+oci_bind_by_name($s, ':pwd', $hashed);
+if (oci_execute($s)) {
+    $count = oci_num_rows($s);
+    echo "Updated $count users to password123\n";
+} else {
+    $e = oci_error($s);
+    echo "FAIL: " . $e['message'] . "\n";
 }
+oci_free_statement($s);
 
-$stmt = oci_parse($conn, "UPDATE users SET password = :pwd");
-oci_bind_by_name($stmt, ':pwd', $hash);
-oci_execute($stmt);
-oci_commit($conn);
-
-$count = oci_num_rows($stmt);
-echo "Updated $count users with new password hash\n";
-
-// Verify admin login
-$stmt = oci_parse($conn, "SELECT username, password FROM users WHERE username = 'admin'");
-oci_execute($stmt);
-$row = oci_fetch_array($stmt, OCI_ASSOC);
-echo "Admin: {$row['USERNAME']} | Verify: " . (password_verify('password123', $row['PASSWORD']) ? 'PASS' : 'FAIL') . "\n";
+// Verify admin
+$s = oci_parse($conn, "SELECT username, password FROM users WHERE username = 'admin'");
+oci_execute($s);
+$row = oci_fetch_array($s, OCI_ASSOC);
+echo "Admin verify: " . (password_verify('password123', $row['PASSWORD']) ? 'OK - login will work' : 'FAIL') . "\n";
+oci_free_statement($s);
 
 oci_close($conn);
-echo "Done!\n";

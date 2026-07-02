@@ -127,25 +127,27 @@ AFTER INSERT OR UPDATE OR DELETE ON users
 FOR EACH ROW
 DECLARE
     v_action VARCHAR2(10);
+    v_log_id NUMBER;
 BEGIN
+    SELECT NVL(MAX(log_id), 0) + 1 INTO v_log_id FROM audit_log;
     IF INSERTING THEN
         v_action := 'INSERT';
-        INSERT INTO audit_log (table_name, record_id, action, new_values, performed_at)
-        VALUES ('USERS', :NEW.user_id, v_action,
-                '{"username":"' || :NEW.username || '","email":"' || :NEW.email || '","full_name":"' || :NEW.full_name || '"}',
+        INSERT INTO audit_log (log_id, table_name, record_id, action, new_values, performed_at)
+        VALUES (v_log_id, 'USERS', :NEW.user_id, v_action,
+                '{"username":"' || :NEW.username || '","full_name":"' || :NEW.full_name || '"}',
                 CURRENT_TIMESTAMP);
     ELSIF UPDATING THEN
         v_action := 'UPDATE';
-        INSERT INTO audit_log (table_name, record_id, action, old_values, new_values, performed_at)
-        VALUES ('USERS', :OLD.user_id, v_action,
-                '{"username":"' || :OLD.username || '","email":"' || :OLD.email || '"}',
-                '{"username":"' || :NEW.username || '","email":"' || :NEW.email || '"}',
+        INSERT INTO audit_log (log_id, table_name, record_id, action, old_values, new_values, performed_at)
+        VALUES (v_log_id, 'USERS', :OLD.user_id, v_action,
+                '{"username":"' || :OLD.username || '"}',
+                '{"username":"' || :NEW.username || '"}',
                 CURRENT_TIMESTAMP);
     ELSIF DELETING THEN
         v_action := 'DELETE';
-        INSERT INTO audit_log (table_name, record_id, action, old_values, performed_at)
-        VALUES ('USERS', :OLD.user_id, v_action,
-                '{"username":"' || :OLD.username || '","email":"' || :OLD.email || '"}',
+        INSERT INTO audit_log (log_id, table_name, record_id, action, old_values, performed_at)
+        VALUES (v_log_id, 'USERS', :OLD.user_id, v_action,
+                '{"username":"' || :OLD.username || '"}',
                 CURRENT_TIMESTAMP);
     END IF;
 END;
@@ -156,24 +158,26 @@ AFTER INSERT OR UPDATE OR DELETE ON teams
 FOR EACH ROW
 DECLARE
     v_action VARCHAR2(10);
+    v_log_id NUMBER;
 BEGIN
+    SELECT NVL(MAX(log_id), 0) + 1 INTO v_log_id FROM audit_log;
     IF INSERTING THEN
         v_action := 'INSERT';
-        INSERT INTO audit_log (table_name, record_id, action, new_values, performed_at)
-        VALUES ('TEAMS', :NEW.team_id, v_action,
+        INSERT INTO audit_log (log_id, table_name, record_id, action, new_values, performed_at)
+        VALUES (v_log_id, 'TEAMS', :NEW.team_id, v_action,
                 '{"team_name":"' || :NEW.team_name || '"}',
                 CURRENT_TIMESTAMP);
     ELSIF UPDATING THEN
         v_action := 'UPDATE';
-        INSERT INTO audit_log (table_name, record_id, action, old_values, new_values, performed_at)
-        VALUES ('TEAMS', :OLD.team_id, v_action,
+        INSERT INTO audit_log (log_id, table_name, record_id, action, old_values, new_values, performed_at)
+        VALUES (v_log_id, 'TEAMS', :OLD.team_id, v_action,
                 '{"team_name":"' || :OLD.team_name || '"}',
                 '{"team_name":"' || :NEW.team_name || '"}',
                 CURRENT_TIMESTAMP);
     ELSIF DELETING THEN
         v_action := 'DELETE';
-        INSERT INTO audit_log (table_name, record_id, action, old_values, performed_at)
-        VALUES ('TEAMS', :OLD.team_id, v_action,
+        INSERT INTO audit_log (log_id, table_name, record_id, action, old_values, performed_at)
+        VALUES (v_log_id, 'TEAMS', :OLD.team_id, v_action,
                 '{"team_name":"' || :OLD.team_name || '"}',
                 CURRENT_TIMESTAMP);
     END IF;
@@ -185,24 +189,26 @@ AFTER INSERT OR UPDATE OR DELETE ON tournaments
 FOR EACH ROW
 DECLARE
     v_action VARCHAR2(10);
+    v_log_id NUMBER;
 BEGIN
+    SELECT NVL(MAX(log_id), 0) + 1 INTO v_log_id FROM audit_log;
     IF INSERTING THEN
         v_action := 'INSERT';
-        INSERT INTO audit_log (table_name, record_id, action, new_values, performed_at)
-        VALUES ('TOURNAMENTS', :NEW.tournament_id, v_action,
+        INSERT INTO audit_log (log_id, table_name, record_id, action, new_values, performed_at)
+        VALUES (v_log_id, 'TOURNAMENTS', :NEW.tournament_id, v_action,
                 '{"name":"' || :NEW.tournament_name || '","status":"' || :NEW.status || '"}',
                 CURRENT_TIMESTAMP);
     ELSIF UPDATING THEN
         v_action := 'UPDATE';
-        INSERT INTO audit_log (table_name, record_id, action, old_values, new_values, performed_at)
-        VALUES ('TOURNAMENTS', :OLD.tournament_id, v_action,
+        INSERT INTO audit_log (log_id, table_name, record_id, action, old_values, new_values, performed_at)
+        VALUES (v_log_id, 'TOURNAMENTS', :OLD.tournament_id, v_action,
                 '{"name":"' || :OLD.tournament_name || '","status":"' || :OLD.status || '"}',
                 '{"name":"' || :NEW.tournament_name || '","status":"' || :NEW.status || '"}',
                 CURRENT_TIMESTAMP);
     ELSIF DELETING THEN
         v_action := 'DELETE';
-        INSERT INTO audit_log (table_name, record_id, action, old_values, performed_at)
-        VALUES ('TOURNAMENTS', :OLD.tournament_id, v_action,
+        INSERT INTO audit_log (log_id, table_name, record_id, action, old_values, performed_at)
+        VALUES (v_log_id, 'TOURNAMENTS', :OLD.tournament_id, v_action,
                 '{"name":"' || :OLD.tournament_name || '"}',
                 CURRENT_TIMESTAMP);
     END IF;
@@ -214,24 +220,26 @@ AFTER INSERT OR UPDATE OR DELETE ON matches
 FOR EACH ROW
 DECLARE
     v_action VARCHAR2(10);
+    v_log_id NUMBER;
 BEGIN
+    SELECT NVL(MAX(log_id), 0) + 1 INTO v_log_id FROM audit_log;
     IF INSERTING THEN
         v_action := 'INSERT';
-        INSERT INTO audit_log (table_name, record_id, action, new_values, performed_at)
-        VALUES ('MATCHES', :NEW.match_id, v_action,
+        INSERT INTO audit_log (log_id, table_name, record_id, action, new_values, performed_at)
+        VALUES (v_log_id, 'MATCHES', :NEW.match_id, v_action,
                 '{"match_name":"' || :NEW.match_name || '","status":"' || :NEW.status || '"}',
                 CURRENT_TIMESTAMP);
     ELSIF UPDATING THEN
         v_action := 'UPDATE';
-        INSERT INTO audit_log (table_name, record_id, action, old_values, new_values, performed_at)
-        VALUES ('MATCHES', :OLD.match_id, v_action,
+        INSERT INTO audit_log (log_id, table_name, record_id, action, old_values, new_values, performed_at)
+        VALUES (v_log_id, 'MATCHES', :OLD.match_id, v_action,
                 '{"status":"' || :OLD.status || '"}',
                 '{"status":"' || :NEW.status || '"}',
                 CURRENT_TIMESTAMP);
     ELSIF DELETING THEN
         v_action := 'DELETE';
-        INSERT INTO audit_log (table_name, record_id, action, old_values, performed_at)
-        VALUES ('MATCHES', :OLD.match_id, v_action,
+        INSERT INTO audit_log (log_id, table_name, record_id, action, old_values, performed_at)
+        VALUES (v_log_id, 'MATCHES', :OLD.match_id, v_action,
                 '{"match_name":"' || :OLD.match_name || '"}',
                 CURRENT_TIMESTAMP);
     END IF;
@@ -259,5 +267,3 @@ BEGIN
     END IF;
 END;
 /
-
-PROMPT 'Triggers created successfully!'

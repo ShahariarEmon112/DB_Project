@@ -170,4 +170,3 @@ FROM tournaments t
 JOIN game_categories gc ON t.category_id = gc.category_id
 LEFT JOIN users u ON t.created_by = u.user_id;
 
-PROMPT 'Views created successfully!'

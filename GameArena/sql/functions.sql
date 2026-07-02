@@ -127,4 +127,3 @@ EXCEPTION
 END GET_TEAM_RANK;
 /
 
-PROMPT 'Functions created successfully!'

@@ -63,10 +63,12 @@ class TeamModel {
      */
     public static function create(array $data): int {
         $db = getDB();
-        $sql = "INSERT INTO teams (team_name, description, department, captain_id, logo)
-                VALUES (:name, :description, :department, :captain, :logo)";
+        $newTeamId = (int)$db->fetchColumn("SELECT NVL(MAX(team_id), 0) + 1 FROM teams");
+        $sql = "INSERT INTO teams (team_id, team_name, description, department, captain_id, logo)
+                VALUES (:team_id, :name, :description, :department, :captain, :logo)";
 
         $db->insert($sql, [
+            ':team_id' => $newTeamId,
             ':name' => $data['team_name'],
             ':description' => $data['description'] ?? '',
             ':department' => $data['department'] ?? '',
@@ -74,17 +76,14 @@ class TeamModel {
             ':logo' => $data['logo'] ?? 'default_team.png'
         ]);
 
-        $teamId = (int)$db->fetchColumn("SELECT MAX(team_id) FROM teams");
-
         // Add captain as member
-        if ($teamId) {
-            $db->insert(
-                "INSERT INTO team_members (team_id, user_id, role_in_team) VALUES (:team, :user, 'Captain')",
-                [':team' => $teamId, ':user' => $data['captain_id']]
-            );
-        }
+        $newMemberId = (int)$db->fetchColumn("SELECT NVL(MAX(member_id), 0) + 1 FROM team_members");
+        $db->insert(
+            "INSERT INTO team_members (member_id, team_id, user_id, role_in_team) VALUES (:mid, :team, :user, 'Captain')",
+            [':mid' => $newMemberId, ':team' => $newTeamId, ':user' => $data['captain_id']]
+        );
 
-        return $teamId;
+        return $newTeamId;
     }
 
     /**
@@ -124,9 +123,10 @@ class TeamModel {
     public static function addMember(int $teamId, int $userId, string $role = 'Member'): bool {
         $db = getDB();
         try {
+            $newMemberId = (int)$db->fetchColumn("SELECT NVL(MAX(member_id), 0) + 1 FROM team_members");
             $db->insert(
-                "INSERT INTO team_members (team_id, user_id, role_in_team) VALUES (:team, :user, :role)",
-                [':team' => $teamId, ':user' => $userId, ':role' => $role]
+                "INSERT INTO team_members (member_id, team_id, user_id, role_in_team) VALUES (:mid, :team, :user, :role)",
+                [':mid' => $newMemberId, ':team' => $teamId, ':user' => $userId, ':role' => $role]
             );
             return true;
         } catch (Exception $e) {

@@ -401,4 +401,3 @@ BEGIN
 END GENERATE_TOURNAMENT_REPORT;
 /
 
-PROMPT 'Procedures created successfully!'

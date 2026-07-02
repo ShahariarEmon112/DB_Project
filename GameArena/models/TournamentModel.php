@@ -95,10 +95,12 @@ class TournamentModel {
      */
     public static function create(array $data): int {
         $db = getDB();
-        $sql = "INSERT INTO tournaments (tournament_name, category_id, description, start_date, end_date, registration_deadline, max_teams, min_teams, prize_pool, entry_fee, status, venue, rules, created_by)
-                VALUES (:name, :category, :description, :start_date, :end_date, :deadline, :max_teams, :min_teams, :prize, :fee, :status, :venue, :rules, :created_by)";
+        $newId = (int)$db->fetchColumn("SELECT NVL(MAX(tournament_id), 0) + 1 FROM tournaments");
+        $sql = "INSERT INTO tournaments (tournament_id, tournament_name, category_id, description, start_date, end_date, registration_deadline, max_teams, min_teams, prize_pool, entry_fee, status, venue, rules, created_by)
+                VALUES (:tid, :name, :category, :description, :start_date, :end_date, :deadline, :max_teams, :min_teams, :prize, :fee, :status, :venue, :rules, :created_by)";
 
         $db->insert($sql, [
+            ':tid' => $newId,
             ':name' => $data['tournament_name'],
             ':category' => $data['category_id'],
             ':description' => $data['description'] ?? '',
@@ -115,7 +117,7 @@ class TournamentModel {
             ':created_by' => $data['created_by']
         ]);
 
-        return (int)$db->fetchColumn("SELECT MAX(tournament_id) FROM tournaments");
+        return $newId;
     }
 
     /**

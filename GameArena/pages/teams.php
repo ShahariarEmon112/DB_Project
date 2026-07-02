@@ -35,7 +35,9 @@ $myTeam = null;
 $pendingRequests = [];
 if ($userId) {
     $myTeam = $db->fetchOne(
-        "SELECT t.*, u.full_name AS captain_name FROM teams t
+        "SELECT t.*, u.full_name AS captain_name,
+                (SELECT COUNT(*) FROM team_members tm2 WHERE tm2.team_id = t.team_id) AS member_count
+         FROM teams t
          JOIN team_members tm ON t.team_id = tm.team_id
          LEFT JOIN users u ON t.captain_id = u.user_id
          WHERE tm.user_id = :p_user",

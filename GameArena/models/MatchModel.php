@@ -110,10 +110,12 @@ class MatchModel {
      */
     public static function create(array $data): int {
         $db = getDB();
-        $sql = "INSERT INTO matches (tournament_id, match_name, team1_id, team2_id, match_date, match_time, venue, round, status)
-                VALUES (:tournament, :name, :team1, :team2, :date, :time, :venue, :round, 'Scheduled')";
+        $newId = (int)$db->fetchColumn("SELECT NVL(MAX(match_id), 0) + 1 FROM matches");
+        $sql = "INSERT INTO matches (match_id, tournament_id, match_name, team1_id, team2_id, match_date, match_time, venue, round, status)
+                VALUES (:match_id, :tournament, :name, :team1, :team2, :date, :time, :venue, :round, 'Scheduled')";
 
         $db->insert($sql, [
+            ':match_id' => $newId,
             ':tournament' => $data['tournament_id'],
             ':name' => $data['match_name'],
             ':team1' => $data['team1_id'],
@@ -124,7 +126,7 @@ class MatchModel {
             ':round' => $data['round'] ?? 'Group Stage'
         ]);
 
-        return (int)$db->fetchColumn("SELECT MAX(match_id) FROM matches");
+        return $newId;
     }
 
     /**
@@ -165,12 +167,12 @@ class MatchModel {
     public static function updateResult(int $matchId, array $data): bool {
         $db = getDB();
         try {
-            $db->beginTransaction();
-
-            $sql = "INSERT INTO match_results (match_id, team1_score, team2_score, winner_id, mvp_player_id, duration_mins, notes, recorded_by)
-                    VALUES (:match, :score1, :score2, :winner, :mvp, :duration, :notes, :recorded_by)";
+            $newResultId = (int)$db->fetchColumn("SELECT NVL(MAX(result_id), 0) + 1 FROM match_results");
+            $sql = "INSERT INTO match_results (result_id, match_id, team1_score, team2_score, winner_id, mvp_player_id, duration_mins, notes, recorded_by)
+                    VALUES (:result_id, :match, :score1, :score2, :winner, :mvp, :duration, :notes, :recorded_by)";
 
             $db->insert($sql, [
+                ':result_id' => $newResultId,
                 ':match' => $matchId,
                 ':score1' => $data['team1_score'] ?? 0,
                 ':score2' => $data['team2_score'] ?? 0,

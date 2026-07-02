@@ -1,45 +1,20 @@
 -- =====================================================
--- GameArena - Gaming Tournament Management System
--- Oracle Database Schema
--- Khulna University of Engineering & Technology (KUET)
+-- GameArena - Oracle Schema (Manual PKs, No Sequences)
 -- =====================================================
 
--- Drop existing tables (in reverse dependency order)
-BEGIN
-    EXECUTE IMMEDIATE 'DROP TABLE audit_log CASCADE CONSTRAINTS';
-    EXECUTE IMMEDIATE 'DROP TABLE leaderboard CASCADE CONSTRAINTS';
-    EXECUTE IMMEDIATE 'DROP TABLE player_statistics CASCADE CONSTRAINTS';
-    EXECUTE IMMEDIATE 'DROP TABLE match_results CASCADE CONSTRAINTS';
-    EXECUTE IMMEDIATE 'DROP TABLE matches CASCADE CONSTRAINTS';
-    EXECUTE IMMEDIATE 'DROP TABLE tournament_registrations CASCADE CONSTRAINTS';
-    EXECUTE IMMEDIATE 'DROP TABLE tournaments CASCADE CONSTRAINTS';
-    EXECUTE IMMEDIATE 'DROP TABLE game_categories CASCADE CONSTRAINTS';
-    EXECUTE IMMEDIATE 'DROP TABLE team_members CASCADE CONSTRAINTS';
-    EXECUTE IMMEDIATE 'DROP TABLE teams CASCADE CONSTRAINTS';
-    EXECUTE IMMEDIATE 'DROP TABLE roles CASCADE CONSTRAINTS';
-    EXECUTE IMMEDIATE 'DROP TABLE users CASCADE CONSTRAINTS';
-EXCEPTION
-    WHEN OTHERS THEN NULL;
-END;
-/
-
--- =====================================================
--- ROLES TABLE
--- =====================================================
+-- ROLES
 CREATE TABLE roles (
-    role_id     NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    role_id     NUMBER PRIMARY KEY,
     role_name   VARCHAR2(50) NOT NULL UNIQUE,
     description VARCHAR2(200),
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- =====================================================
--- USERS TABLE
--- =====================================================
+-- USERS
 CREATE TABLE users (
-    user_id      NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id      NUMBER PRIMARY KEY,
     username     VARCHAR2(50) NOT NULL UNIQUE,
-    email        VARCHAR2(100) NOT NULL UNIQUE,
+    email        VARCHAR2(100),
     password     VARCHAR2(255) NOT NULL,
     full_name    VARCHAR2(100) NOT NULL,
     phone        VARCHAR2(20),
@@ -52,15 +27,12 @@ CREATE TABLE users (
     created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_user_role FOREIGN KEY (role_id) REFERENCES roles(role_id),
-    CONSTRAINT chk_email CHECK (email LIKE '%@%'),
     CONSTRAINT chk_active CHECK (is_active IN (0, 1))
 );
 
--- =====================================================
--- TEAMS TABLE
--- =====================================================
+-- TEAMS
 CREATE TABLE teams (
-    team_id      NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    team_id      NUMBER PRIMARY KEY,
     team_name    VARCHAR2(100) NOT NULL UNIQUE,
     description  VARCHAR2(500),
     department   VARCHAR2(100),
@@ -73,11 +45,9 @@ CREATE TABLE teams (
     CONSTRAINT chk_team_active CHECK (is_active IN (0, 1))
 );
 
--- =====================================================
--- TEAM MEMBERS TABLE
--- =====================================================
+-- TEAM MEMBERS
 CREATE TABLE team_members (
-    member_id    NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    member_id    NUMBER PRIMARY KEY,
     team_id      NUMBER NOT NULL,
     user_id      NUMBER NOT NULL,
     role_in_team VARCHAR2(50) DEFAULT 'Member',
@@ -88,11 +58,9 @@ CREATE TABLE team_members (
     CONSTRAINT chk_team_role CHECK (role_in_team IN ('Captain', 'Member', 'Substitute'))
 );
 
--- =====================================================
--- GAME CATEGORIES TABLE
--- =====================================================
+-- GAME CATEGORIES
 CREATE TABLE game_categories (
-    category_id   NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    category_id   NUMBER PRIMARY KEY,
     category_name VARCHAR2(100) NOT NULL UNIQUE,
     description   VARCHAR2(500),
     icon          VARCHAR2(255),
@@ -101,11 +69,9 @@ CREATE TABLE game_categories (
     CONSTRAINT chk_gc_active CHECK (is_active IN (0, 1))
 );
 
--- =====================================================
--- TOURNAMENTS TABLE
--- =====================================================
+-- TOURNAMENTS
 CREATE TABLE tournaments (
-    tournament_id   NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    tournament_id   NUMBER PRIMARY KEY,
     tournament_name VARCHAR2(200) NOT NULL,
     category_id     NUMBER NOT NULL,
     description     VARCHAR2(1000),
@@ -129,11 +95,9 @@ CREATE TABLE tournaments (
     CONSTRAINT chk_dates CHECK (end_date >= start_date)
 );
 
--- =====================================================
--- TOURNAMENT REGISTRATIONS TABLE
--- =====================================================
+-- TOURNAMENT REGISTRATIONS
 CREATE TABLE tournament_registrations (
-    registration_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    registration_id NUMBER PRIMARY KEY,
     tournament_id   NUMBER NOT NULL,
     team_id         NUMBER NOT NULL,
     registered_by   NUMBER,
@@ -146,11 +110,9 @@ CREATE TABLE tournament_registrations (
     CONSTRAINT chk_reg_status CHECK (status IN ('Pending', 'Confirmed', 'Rejected', 'Withdrawn'))
 );
 
--- =====================================================
--- MATCHES TABLE
--- =====================================================
+-- MATCHES
 CREATE TABLE matches (
-    match_id        NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    match_id        NUMBER PRIMARY KEY,
     tournament_id   NUMBER NOT NULL,
     match_name      VARCHAR2(200),
     team1_id        NUMBER NOT NULL,
@@ -169,11 +131,9 @@ CREATE TABLE matches (
     CONSTRAINT chk_different_teams CHECK (team1_id != team2_id)
 );
 
--- =====================================================
--- MATCH RESULTS TABLE
--- =====================================================
+-- MATCH RESULTS
 CREATE TABLE match_results (
-    result_id      NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    result_id      NUMBER PRIMARY KEY,
     match_id       NUMBER NOT NULL UNIQUE,
     team1_score    NUMBER DEFAULT 0,
     team2_score    NUMBER DEFAULT 0,
@@ -190,11 +150,9 @@ CREATE TABLE match_results (
     CONSTRAINT chk_scores CHECK (team1_score >= 0 AND team2_score >= 0)
 );
 
--- =====================================================
--- PLAYER STATISTICS TABLE
--- =====================================================
+-- PLAYER STATISTICS
 CREATE TABLE player_statistics (
-    stat_id        NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    stat_id        NUMBER PRIMARY KEY,
     player_id      NUMBER NOT NULL,
     tournament_id  NUMBER NOT NULL,
     matches_played NUMBER DEFAULT 0,
@@ -215,11 +173,9 @@ CREATE TABLE player_statistics (
     CONSTRAINT chk_ps_deaths CHECK (deaths >= 0)
 );
 
--- =====================================================
--- LEADERBOARD TABLE
--- =====================================================
+-- LEADERBOARD
 CREATE TABLE leaderboard (
-    leaderboard_id  NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    leaderboard_id  NUMBER PRIMARY KEY,
     tournament_id   NUMBER NOT NULL,
     team_id         NUMBER NOT NULL,
     rank_position   NUMBER,
@@ -236,11 +192,9 @@ CREATE TABLE leaderboard (
     CONSTRAINT chk_lb_rank CHECK (rank_position > 0)
 );
 
--- =====================================================
--- AUDIT LOG TABLE
--- =====================================================
+-- AUDIT LOG
 CREATE TABLE audit_log (
-    log_id       NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    log_id       NUMBER PRIMARY KEY,
     table_name   VARCHAR2(50) NOT NULL,
     record_id    NUMBER NOT NULL,
     action       VARCHAR2(10) NOT NULL,
@@ -253,9 +207,24 @@ CREATE TABLE audit_log (
     CONSTRAINT chk_audit_action CHECK (action IN ('INSERT', 'UPDATE', 'DELETE'))
 );
 
--- =====================================================
+-- TEAM JOIN REQUESTS
+CREATE TABLE team_join_requests (
+    request_id  NUMBER PRIMARY KEY,
+    team_id     NUMBER NOT NULL,
+    user_id     NUMBER NOT NULL,
+    message     VARCHAR2(500),
+    status      VARCHAR2(20) DEFAULT 'Pending',
+    responded_by NUMBER,
+    responded_at TIMESTAMP,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_jr_team FOREIGN KEY (team_id) REFERENCES teams(team_id) ON DELETE CASCADE,
+    CONSTRAINT fk_jr_user FOREIGN KEY (user_id) REFERENCES users(user_id),
+    CONSTRAINT fk_jr_responder FOREIGN KEY (responded_by) REFERENCES users(user_id),
+    CONSTRAINT uk_team_user_req UNIQUE (team_id, user_id),
+    CONSTRAINT chk_jr_status CHECK (status IN ('Pending', 'Approved', 'Rejected'))
+);
+
 -- INDEXES
--- =====================================================
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_users_username ON users(username);
 CREATE INDEX idx_users_role ON users(role_id);
@@ -279,13 +248,4 @@ CREATE INDEX idx_leaderboard_team ON leaderboard(team_id);
 CREATE INDEX idx_audit_table ON audit_log(table_name);
 CREATE INDEX idx_audit_performed ON audit_log(performed_by);
 
--- =====================================================
--- SEQUENCES (for manual use if needed)
--- =====================================================
-CREATE SEQUENCE seq_users START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_teams START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_tournaments START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_matches START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE seq_results START WITH 1 INCREMENT BY 1;
-
-PROMPT 'Schema created successfully!'
+COMMIT;

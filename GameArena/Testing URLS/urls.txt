@@ -1,0 +1,39 @@
+Here are all the URLs to test every page:
+
+**Login & Registration:**
+- `http://localhost/GameArena/pages/login.php`
+- `http://localhost/GameArena/pages/register.php`
+
+**Player Dashboard & Pages:**
+- `http://localhost/GameArena/pages/dashboard.php`
+- `http://localhost/GameArena/pages/player-profile.php`
+- `http://localhost/GameArena/pages/teams.php`
+- `http://localhost/GameArena/pages/tournaments.php`
+- `http://localhost/GameArena/pages/matches.php`
+- `http://localhost/GameArena/pages/leaderboard.php`
+- `http://localhost/GameArena/pages/reports.php`
+
+**Admin Dashboard & Pages:**
+- `http://localhost/GameArena/admin/dashboard.php`
+- `http://localhost/GameArena/admin/users.php`
+- `http://localhost/GameArena/admin/teams.php`
+- `http://localhost/GameArena/admin/tournaments.php`
+- `http://localhost/GameArena/admin/matches.php`
+- `http://localhost/GameArena/admin/reports.php`
+
+**API Endpoints (for AJAX/JS):**
+- `http://localhost/GameArena/api/teams.php`
+- `http://localhost/GameArena/api/tournaments.php`
+- `http://localhost/GameArena/api/matches.php`
+
+**Test Accounts:**
+| Role | Username | Password |
+|------|----------|----------|
+| Admin | `admin` | `password123` |
+| Player | `player1` | `password123` |
+| Player | `player2` | `password123` |
+| Captain | `captain_titans` | `password123` |
+| Captain | `captain_phoenix` | `password123` |
+| Captain | `captain_shadow` | `password123` |
+
+**Index redirect:** `http://localhost/GameArena/` → redirects to login

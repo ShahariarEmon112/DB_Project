@@ -143,10 +143,11 @@ try {
                 exit;
             }
 
+            $newRegId = (int)$db->fetchColumn("SELECT NVL(MAX(registration_id), 0) + 1 FROM tournament_registrations");
             $db->insert(
-                "INSERT INTO tournament_registrations (tournament_id, team_id, registered_by, registration_date, status)
-                 VALUES (:p_tid3, :p_team2, :p_uid, CURRENT_TIMESTAMP, 'Confirmed')",
-                [':p_tid3' => $tournamentId, ':p_team2' => $team['TEAM_ID'], ':p_uid' => $userId]
+                "INSERT INTO tournament_registrations (registration_id, tournament_id, team_id, registered_by, registration_date, status)
+                 VALUES (:p_reg_id, :p_tid3, :p_team2, :p_uid, CURRENT_TIMESTAMP, 'Confirmed')",
+                [':p_reg_id' => $newRegId, ':p_tid3' => $tournamentId, ':p_team2' => $team['TEAM_ID'], ':p_uid' => $userId]
             );
 
             header("Location: $backUrl&success=" . urlencode("Team {$team['TEAM_NAME']} registered successfully!"));
